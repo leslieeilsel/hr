@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 19/08/2019 15:39:46
+ Date: 19/08/2019 18:05:49
 */
 
 SET NAMES utf8mb4;
@@ -125,12 +125,13 @@ CREATE TABLE `iba_system_dict`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of iba_system_dict
 -- ----------------------------
 INSERT INTO `iba_system_dict` VALUES (1, '性别', 'sex', NULL, 1, NULL, '2019-01-25 10:22:35', '2019-01-25 10:22:35');
+INSERT INTO `iba_system_dict` VALUES (2, '职位', 'office', '职位', 1, NULL, '2019-08-19 18:01:22', '2019-08-19 18:01:22');
 
 -- ----------------------------
 -- Table structure for iba_system_dict_data
@@ -149,13 +150,16 @@ CREATE TABLE `iba_system_dict_data`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of iba_system_dict_data
 -- ----------------------------
 INSERT INTO `iba_system_dict_data` VALUES (1, '男', '0', 1, NULL, 1, NULL, 0, 1, '2019-01-25 10:23:00', '2019-01-25 10:23:00');
 INSERT INTO `iba_system_dict_data` VALUES (2, '女', '1', 1, NULL, 1, NULL, 1, 1, '2019-01-25 10:23:23', '2019-01-25 10:23:23');
+INSERT INTO `iba_system_dict_data` VALUES (3, '填报员', '0', 2, '填报员', 1, NULL, 0, 1, '2019-03-20 21:36:22', '2019-03-20 21:36:22');
+INSERT INTO `iba_system_dict_data` VALUES (4, '审核员', '1', 2, '审核员', 1, NULL, 1, 1, '2019-03-20 21:36:36', '2019-03-20 21:36:36');
+INSERT INTO `iba_system_dict_data` VALUES (5, '管理人员', '2', 2, '管理人员', 1, NULL, 2, 1, '2019-03-20 21:36:53', '2019-03-20 21:36:53');
 
 -- ----------------------------
 -- Table structure for iba_system_notify
@@ -237,7 +241,7 @@ CREATE TABLE `ibiart_slms_user_roles`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `menus`;
 CREATE TABLE `menus`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
@@ -256,7 +260,7 @@ CREATE TABLE `menus`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `type` int(11) NOT NULL DEFAULT 1 COMMENT '类型     pc端1   移动端2',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menus
@@ -272,7 +276,6 @@ INSERT INTO `menus` VALUES (8, '事件日志', 'eventlogs', 'views/sys/monitor/m
 INSERT INTO `menus` VALUES (9, '操作日志', 'operationlogs', 'views/sys/operationlogs', 3, '记录系统功能操作日志', 'operationlogs', 0, NULL, NULL, '_self', 1, 6, 1, NULL, '2019-01-10 02:46:52', '1999-12-31 00:00:00', 1);
 INSERT INTO `menus` VALUES (10, '数据字典管理', 'dict', 'views/sys/dict-manage/dictManage', 3, '数据字典管理', 'dict-manage/dictManage', 0, NULL, NULL, '_self', 1, 7, 1, NULL, '2019-01-25 11:06:21', '1999-12-31 00:00:00', 1);
 INSERT INTO `menus` VALUES (11, '个人中心', 'profile', 'views/sys/profile/profile', 3, '个人中心', '/sys/profile', 0, NULL, NULL, '_self', 1, 8, 1, NULL, '2019-01-18 14:54:09', '1999-12-31 00:00:00', 1);
-INSERT INTO `menus` VALUES (12, '通知管理', 'notify', 'views/sys/notify/notify', 3, NULL, 'notify', 0, NULL, NULL, '_self', 1, 0, 1, NULL, '2019-03-26 03:24:42', '2019-03-26 03:24:42', 1);
 
 -- ----------------------------
 -- Table structure for migrations
@@ -321,7 +324,18 @@ CREATE TABLE `operation_log`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of operation_log
+-- ----------------------------
+INSERT INTO `operation_log` VALUES (1, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 16:27:58', NULL);
+INSERT INTO `operation_log` VALUES (2, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:05:46', NULL);
+INSERT INTO `operation_log` VALUES (3, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:10:07', NULL);
+INSERT INTO `operation_log` VALUES (4, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:18:31', NULL);
+INSERT INTO `operation_log` VALUES (5, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:32:50', NULL);
+INSERT INTO `operation_log` VALUES (6, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:58:37', NULL);
+INSERT INTO `operation_log` VALUES (7, '新建字典分类', 'POST', 'api/dict/addDict', '::1', '', 1, '2019-08-19 18:01:22', NULL);
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -366,6 +380,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '超级管理员', '15594990729', 'admin@admin.com', NULL, '$2y$10$q7IuhSqsnGL5g3CNQEypleEuDMZrJyQImZqwSlLEORMoGHBp9u9.u', '超级管理员', 6, 1, 2, NULL, '2019-08-15 15:58:42', '2019-03-26 15:10:17', '2019-08-15 15:58:42', '');
+INSERT INTO `users` VALUES (1, 'admin', '超级管理员', '15594990729', 'admin@admin.com', NULL, '$2y$10$q7IuhSqsnGL5g3CNQEypleEuDMZrJyQImZqwSlLEORMoGHBp9u9.u', '超级管理员', 6, 1, 2, NULL, '2019-08-19 17:58:37', '2019-03-26 15:10:17', '2019-08-19 17:58:37', '');
 
 SET FOREIGN_KEY_CHECKS = 1;
