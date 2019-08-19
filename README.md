@@ -1,12 +1,11 @@
-<h1 align="center">icp - 沣西集团人力资源管理系统</h1>
+<h1 align="center">hr - 沣西集团人力资源管理系统</h1>
 
 #### 安装扩展
 
 ```bash
 # 克隆项目
-git clone https://github.com/leslieeilsel/Laravue.git
+git clone https://github.com/leslieeilsel/hr.git
 
-# 切换到icp分支
 
 # 安装composer依赖包
 cd laravue
@@ -31,7 +30,7 @@ php artisan jwt:secret
 配置数据库名称、用户名和密码
 
 # 数据库迁移
-# 将database/data/icp.sql还原到数据库
+# 将database/data/hr.sql还原到数据库
 ```
 
 #### 编译运行
