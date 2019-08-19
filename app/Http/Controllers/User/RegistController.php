@@ -11,7 +11,6 @@ use App\Models\Role;
 use App\Models\OperationLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Project\Projects;
 use App\Models\Dict;
 
 class RegistController extends Controller
@@ -130,7 +129,7 @@ class RegistController extends Controller
     public function getUserDictData(Request $request)
     {
         $nameArr = $request->input('dictName');
-        $result = Projects::getDictDataByName($nameArr);
+        $result = $this->getDictDataByName($nameArr);
 
         return response()->json(['result' => $result], 200);
     }
@@ -202,5 +201,24 @@ class RegistController extends Controller
         $result = DB::table('users')->where('id', $params['id'])->first();
 
         return response()->json(['result' => $result], 200);
+    }
+
+    /**
+     * 获取数据字典数据
+     *
+     * @param $nameArr
+     * @return array
+     */
+    public static function getDictDataByName($nameArr)
+    {
+        $data = [];
+
+        if ($nameArr) {
+            foreach ($nameArr as $key => $name) {
+                $data[$key] = Dict::getOptionsByName($name);
+            }
+        }
+
+        return $data;
     }
 }
