@@ -110,8 +110,8 @@
 
   &-header {
     height: 60px;
-    background: -webkit-linear-gradient(right, #389afe 33%, #2945cb 100%);
-    background: linear-gradient(right, #389afe 33%, #2945cb 100%);
+    background: -webkit-linear-gradient(to right, #3277e9 33%, #643ebf 100%); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3277e9 33%, #643ebf 100%);
     box-shadow: 0 1px 1px 1px rgba(100, 100, 100, .1);
     position: relative;
     z-index: 11;

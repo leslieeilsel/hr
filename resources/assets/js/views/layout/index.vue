@@ -18,9 +18,8 @@
       <div class="main-header">
         <div class="header-middle-con">
           <div class="main-breadcrumb">
-            <img src="../../images/xixian.png" width="30px"/>
+            <img src="../../images/xixian.png" width="30px" style="vertical-align:middle;margin-top: -5px;"/>
             <span>沣西集团人力资源管理系统</span>
-<!--            <breadcrumb-nav :currentPath="currentPath"></breadcrumb-nav>-->
           </div>
         </div>
         <div class="header-avator-con">
