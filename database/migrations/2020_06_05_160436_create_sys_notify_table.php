@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIbaSystemNotifyTable extends Migration
+class CreateSysNotifyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIbaSystemNotifyTable extends Migration
      */
     public function up()
     {
-        Schema::create('iba_system_notify', function (Blueprint $table) {
+        Schema::create('sys_notify', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
@@ -31,6 +31,6 @@ class CreateIbaSystemNotifyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('iba_system_notify');
+        Schema::dropIfExists('sys_notify');
     }
 }

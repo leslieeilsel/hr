@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIbaRoleDepartmentTable extends Migration
+class CreateRoleMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateIbaRoleDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('iba_role_department', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('department_id')->unsigned();
+        Schema::create('role_menus', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->integer('menu_id')->unsigned();
+            $table->integer('checked')->unsigned();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateIbaRoleDepartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('iba_role_department');
+        Schema::dropIfExists('role_menus');
     }
 }

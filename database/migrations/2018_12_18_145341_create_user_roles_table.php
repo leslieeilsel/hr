@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIbiartSlmsRoleMenusTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateIbiartSlmsRoleMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('ibiart_slms_role_menus', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->integer('role_id')->unsigned();
-            $table->integer('menu_id')->unsigned();
-            $table->integer('checked')->unsigned();
+            $table->integer('user_id')->unsigned();
         });
     }
 
@@ -28,6 +27,6 @@ class CreateIbiartSlmsRoleMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ibiart_slms_role_menus');
+        Schema::dropIfExists('user_roles');
     }
 }

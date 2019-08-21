@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIbiartSlmsUserRolesTable extends Migration
+class CreateRoleDepartmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateIbiartSlmsUserRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ibiart_slms_user_roles', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+        Schema::create('role_department', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('department_id')->unsigned();
             $table->integer('role_id')->unsigned();
-            $table->integer('user_id')->unsigned();
         });
     }
 
@@ -27,6 +27,6 @@ class CreateIbiartSlmsUserRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ibiart_slms_user_roles');
+        Schema::dropIfExists('role_department');
     }
 }

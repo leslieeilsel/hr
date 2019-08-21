@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIbaSystemDepartmentTable extends Migration
+class CreateSysDepartmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIbaSystemDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('iba_system_department', function (Blueprint $table) {
+        Schema::create('sys_department', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');                                // 名称
             $table->integer('sort')->default(null);                 // 排序值
@@ -33,6 +33,6 @@ class CreateIbaSystemDepartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('iba_system_department');
+        Schema::dropIfExists('sys_department');
     }
 }
