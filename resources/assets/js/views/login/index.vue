@@ -1,8 +1,8 @@
 <template>
   <div id="background" class="content">
     <Row class="header">
-      <img src="../../images/logo.png" style="width:200px" alt="沣西集团人力资源管理系统"/>
-      <p class="description">沣西集团人力资源管理系统</p>
+      <img src="../../images/logo.png" style="width:200px" alt="沣西现代企业管理平台"/>
+      <p class="description">沣西现代企业管理平台</p>
     </Row>
     <Row type="flex" justify="center" class-name="row" @keydown.enter.native="submit('form')">
       <br>

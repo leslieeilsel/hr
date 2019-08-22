@@ -2,31 +2,21 @@
   @import 'main.scss';
 </style>
 <template>
-  <div class="main">
-    
-    <!-- sidebar start -->
-    <div class="sidebar-menu-con" :style="{width: '250px', overflow: 'auto'}">
-      <shrinkable-menu
-        :open-names="openedSubmenuArr"
-        :menu-list="menuList">
-      </shrinkable-menu>
-    </div>
-    <!-- sidebar end -->
-    
+  <div class="main">    
     <!-- header start -->
     <div class="main-header-con">
-      <div class="main-header">
+      <div class="main-header" style="background: #fff;">
         <div class="header-middle-con">
           <div class="main-breadcrumb">
             <img src="../../images/xixian.png" width="30px" style="vertical-align:middle;margin-top: -5px;"/>
-            <span>沣西集团人力资源管理系统</span>
+            <span style="color:#515a6e">沣西现代企业管理平台</span>
           </div>
         </div>
         <div class="header-avator-con">
           <!-- -->
           <Badge dot style="top: 20px;left: 110px;color: #fff">
             <a href="/#/sys-manage/notify">
-              <Icon type="ios-notifications" size="20" color="#fff"></Icon>
+              <Icon type="ios-notifications" size="20" color="#515a6e"></Icon>
             </a>
           </Badge>
           <!--dropdown start -->
@@ -34,7 +24,7 @@
             <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
               <Dropdown transfer trigger="click" @on-click="clickDropdown">
                 <a href="javascript:void(0)">
-                  <span class="main-user-name" key="main-user-name">{{ userName }}</span>
+                  <span class="main-user-name" key="main-user-name" style="color:#515a6e">{{ userName }}</span>
                   <Icon type="arrow-down-b"></Icon>
                 </a>
                 <DropdownMenu slot="list">
@@ -48,34 +38,158 @@
           <!-- dropdown end -->
         </div>
       </div>
-      <div class="tags-con">
-        <tags-page-opened></tags-page-opened>
-      </div>
     </div>
-    <!-- header end -->
-    
-    <!-- router-view start -->
-    <div class="single-page-con" :style="{left: '250px'}">
-      <div class="single-page">
-        <keep-alive :include="cachePage">
-          <router-view></router-view>
-        </keep-alive>
+    <div style="margin-top: 100px;">
+        <h2 style="text-align: center;">经营管理</h2>
+        <Row :gutter="16" style="width:80%; margin:auto">
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/fast.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">投资云平台</h3>
+                      <h4 style="margin-top:15px;text-align: left;">投资云平台投资云平台投资云平台投资云平台投资云平台投资云平台</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/accessible.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">工程项目管理</h3>
+                      <h4 style="margin-top:15px;text-align: left;">工程项目管理工程项目管理工程项目管理工程项目管理工程项目管理</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">招投标管理</h3>
+                      <h4 style="margin-top:15px;text-align: left;">招投标管理招投标管理招投标管理招投标管理招投标管理招投标管理招投标管理</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">督查督办管理</h3>
+                      <h4 style="margin-top:15px;text-align: left;">督查督办管理督查督办管理督查督办管理督查督办管理督查督办管理督查督办管理</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">安健环管理</h3>
+                      <h4 style="margin-top:15px;text-align: left;">安健环管理安健环管理安健环管理安健环管理安健环管理安健环管理安健环管理</h4>
+                  </div>
+              </Card>
+            </Col>
+          </Row>
+          <br>
+          <h2 style="text-align: center;">项目建设管理</h2>
+          <Row :gutter="16" style="width:80%; margin:auto">
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/fast.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">智能路灯</h3>
+                      <h4 style="margin-top:15px;text-align: left;">智能路灯智能路灯智能路灯智能路灯智能路灯智能路灯智能路灯智能路灯</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/accessible.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">智慧园区</h3>
+                      <h4 style="margin-top:15px;text-align: left;">智慧园区智慧园区智慧园区智慧园区智慧园区智慧园区智慧园区智慧园区</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">智慧管廊</h3>
+                      <h4 style="margin-top:15px;text-align: left;">智慧管廊智慧管廊智慧管廊智慧管廊智慧管廊智慧管廊智慧管廊智慧管廊</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">智慧能源</h3>
+                      <h4 style="margin-top:15px;text-align: left;">智慧能源智慧能源智慧能源智慧能源智慧能源智慧能源智慧能源智慧能源智慧能源</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">CIM+AI</h3>
+                      <h4 style="margin-top:15px;text-align: left;">CIM+AICIM+AICIM+AIC</h4>
+                  </div>
+              </Card>
+            </Col>
+          </Row>
+          <br>
+          <h2 style="text-align: center;">内控管理</h2>
+          <Row :gutter="16" style="width:80%; margin:auto">
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/fast.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">无纸化办公</h3>
+                      <h4 style="margin-top:15px;text-align: left;">无纸化办公无纸化办公无纸化办公无纸化办公无纸化办公无纸化办公</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/accessible.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">统一通讯</h3>
+                      <h4 style="margin-top:15px;text-align: left;">统一通讯统一通讯统一通讯统一通讯统一通讯统一通讯统一通讯统一通讯</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">人力资源云平台</h3>
+                      <h4 style="margin-top:15px;text-align: left;">人力资源云平台人力资源云平台人力资源云平台人力资源云平台人力资源云平台</h4>
+                  </div>
+              </Card>
+            </Col>
+            <Col span="6" style="margin-top:15px;">
+              <Card style="100%">
+                  <div style="text-align:center">
+                      <img src="https://web.dev/images/collections/reliable.svg" width="90%">
+                      <h3 style="margin-top:15px;text-align: left;">财务管理</h3>
+                      <h4 style="margin-top:15px;text-align: left;">财务管理财务管理财务管理财务管理财务管理财务管理财务管理财务管理财务管理</h4>
+                  </div>
+              </Card>
+            </Col>
+          </Row>
       </div>
-      <!--      <Footer class="layout-footer-center">-->
-      <!--        <p>版权所有：陕西微软创新中心有限公司 陕ICP备15012717号</p>-->
-      <!--        <p>地址：陕西省西咸新区沣西新城康定路与兴咸路十字西南角（西部云谷B3楼5层）</p>-->
-      <!--        <p>E-mail：mic@micshaanxi.com 邮编：712000 电话：（029）38020667</p>-->
-      <!--      </Footer>-->
-    </div>
-    <!-- router-view end -->
-    <!-- layout footer -->
+      <Footer class="layout-footer-center" style="background: #fff;">
+        <p>版权所有：陕西微软创新中心有限公司 陕ICP备15012717号</p>
+        <p>地址：陕西省西咸新区沣西新城康定路与兴咸路十字西南角（西部云谷B3楼5层）</p>
+        <p>E-mail：mic@micshaanxi.com 邮编：712000 电话：（029）38020667</p>
+      </Footer>  
   </div>
 </template>
 <script>
-  import shrinkableMenu from './components/shrinkable-menu/shrinkable-menu.vue';
-  import tagsPageOpened from './components/tags-page-opened.vue';
-  import breadcrumbNav from './components/breadcrumb-nav.vue';
-  import messageTip from './components/message-tip.vue';
+  // import shrinkableMenu from './components/shrinkable-menu/shrinkable-menu.vue';
+  // import tagsPageOpened from './components/tags-page-opened.vue';
+  // import breadcrumbNav from './components/breadcrumb-nav.vue';
+  // import messageTip from './components/message-tip.vue';
   import util from '../../libs/util.js';
   import {getRouter} from '../../api/system';
   import layout from '../../views/layout';
@@ -83,10 +197,10 @@
 
   export default {
     components: {
-      shrinkableMenu,
-      tagsPageOpened,
-      breadcrumbNav,
-      messageTip
+      // shrinkableMenu,
+      // tagsPageOpened,
+      // breadcrumbNav,
+      // messageTip
     },
     data() {
       return {
