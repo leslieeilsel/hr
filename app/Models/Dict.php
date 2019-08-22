@@ -9,13 +9,13 @@ class Dict extends Model
 {
     public $timestamps = true;
 
-    protected $table = 'iba_system_dict';
+    protected $table = 'sys_dict_categories';
 
     protected $fillable = ['title', 'type', 'description'];
 
     public function data()
     {
-        return $this->hasMany('App\Models\DictData');
+        return $this->hasMany('App\Models\DictData', 'dict_id');
     }
 
     /**

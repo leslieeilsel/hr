@@ -72,8 +72,8 @@ class RoleController
             ];
         }
 
-        DB::table('ibiart_slms_role_menus')->where('role_id', $roleId)->delete();
-        $result = DB::table('ibiart_slms_role_menus')->insert($insertArr);
+        DB::table('sys_roles_menus')->where('role_id', $roleId)->delete();
+        $result = DB::table('sys_roles_menus')->insert($insertArr);
 
         if ($result) {
             $log = new OperationLog();
@@ -133,7 +133,7 @@ class RoleController
         // 匹配子记录
         foreach ($childDepartment as $k => $v) {
             if ($roleId) {
-                $res = DB::table('iba_role_department')->where('role_id', $roleId)->where('department_id', $v['id'])->first();
+                $res = DB::table('sys_roles_departments')->where('role_id', $roleId)->where('department_id', $v['id'])->first();
                 if ($res) {
                     $v['checked'] = true;
                 }
@@ -176,9 +176,9 @@ class RoleController
                 $insertArr[$k]['department_id'] = (int)$v;
             }
 
-            $del_res = DB::table('iba_role_department')->where('role_id', $roleId)->delete();
+            $del_res = DB::table('sys_roles_departments')->where('role_id', $roleId)->delete();
             if ($del_res >= 0) {
-                $update_res = DB::table('iba_role_department')->insert($insertArr);
+                $update_res = DB::table('sys_roles_departments')->insert($insertArr);
             }
         }
 
@@ -196,9 +196,9 @@ class RoleController
     {
         $ids = $request->input('id');
         if ($ids) {
-            $result = DB::table('ibiart_slms_roles')->whereIn('id', explode(',',$ids))->delete();
-            $menuResult = DB::table('ibiart_slms_role_menus')->whereIn('role_id', explode(',',$ids))->delete();
-            $departmentResult = DB::table('iba_role_department')->whereIn('role_id', explode(',',$ids))->delete();
+            $result = DB::table('sys_roles')->whereIn('id', explode(',',$ids))->delete();
+            $menuResult = DB::table('sys_roles_menus')->whereIn('role_id', explode(',',$ids))->delete();
+            $departmentResult = DB::table('sys_roles_departments')->whereIn('role_id', explode(',',$ids))->delete();
             $usersResult = DB::table('users')->whereIn('group_id', explode(',',$ids))->delete();
             // DB::rollBack();
             $result = $result ? true : false;
@@ -223,11 +223,11 @@ class RoleController
     public function edit(Request $request)
     {
         $params = $request->input();
-        $roles = DB::table('ibiart_slms_roles')->where('id',$params['id'])->first();
-        $result = DB::table('ibiart_slms_roles')->where('id',$params['id'])->update($params);
+        $roles = DB::table('sys_roles')->where('id',$params['id'])->first();
+        $result = DB::table('sys_roles')->where('id',$params['id'])->update($params);
         if($roles['name']!=$params['name']){
-            $menuResult = DB::table('ibiart_slms_role_menus')->where('role_id', $params['id'])->delete();
-            $departmentResult = DB::table('iba_role_department')->where('role_id', $params['id'])->delete();
+            $menuResult = DB::table('sys_roles_menus')->where('role_id', $params['id'])->delete();
+            $departmentResult = DB::table('sys_roles_departments')->where('role_id', $params['id'])->delete();
             $usersResult = DB::table('users')->where('group_id', $params['id'])->delete();
         }
         $result = $result ? true : false;

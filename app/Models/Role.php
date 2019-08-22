@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $table = 'ibiart_slms_roles';
+    protected $table = 'sys_roles';
 }

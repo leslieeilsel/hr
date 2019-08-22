@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleDepartmentTable extends Migration
+class CreateSysRolesMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateRoleDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_department', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('department_id')->unsigned();
+        Schema::create('sys_roles_menus', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->integer('menu_id')->unsigned();
+            $table->integer('checked')->unsigned();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateRoleDepartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_department');
+        Schema::dropIfExists('sys_roles_menus');
     }
 }

@@ -8,7 +8,7 @@ class DictData extends Model
 {
     public $timestamps = true;
 
-    protected $table = 'iba_system_dict_data';
+    protected $table = 'sys_dict_data';
 
     protected $fillable = ['title', 'value', 'description', 'dict_id', 'sort', 'status'];
 

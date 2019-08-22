@@ -24,7 +24,7 @@ class MenuController
         foreach ($menus as $k => $v) {
             if ($v['parent_id'] === 0) {
                 if ($role_id) {
-                    $res = DB::table('ibiart_slms_role_menus')->where('role_id', $role_id)->where('menu_id', $v['id'])->first();
+                    $res = DB::table('sys_roles_menus')->where('role_id', $role_id)->where('menu_id', $v['id'])->first();
                     if ($res) {
                         $v['checked'] = (boolean) $res['checked'];
                     }
@@ -45,7 +45,7 @@ class MenuController
         foreach ($menus as $k => $v) {
             if ($v['parent_id'] === $pid) {
                 if ($role_id) {
-                    $res = DB::table('ibiart_slms_role_menus')->where('role_id', $role_id)->where('menu_id', $v['id'])->first();
+                    $res = DB::table('sys_roles_menus')->where('role_id', $role_id)->where('menu_id', $v['id'])->first();
                     if ($res) {
                         $v['checked'] = (boolean) $res['checked'];
                     }
@@ -114,7 +114,7 @@ class MenuController
     {
         $roleId = Auth::user()->group_id;
 
-        $result = DB::table('ibiart_slms_role_menus')->where('role_id', $roleId)->get()->toArray();
+        $result = DB::table('sys_roles_menus')->where('role_id', $roleId)->get()->toArray();
         $menuIds = array_column($result, 'menu_id');
         $routers = $this->buildRouter($menuIds);
 
@@ -229,7 +229,7 @@ class MenuController
         $ids = explode(',', $id);
 
         $menuRes = Menu::destroy($ids);
-        $roleRes = DB::table('ibiart_slms_role_menus')->whereIn('menu_id', $ids)->delete();
+        $roleRes = DB::table('sys_roles_menus')->whereIn('menu_id', $ids)->delete();
 
         $result = ($menuRes && $roleRes >= 0);
 

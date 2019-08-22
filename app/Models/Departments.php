@@ -8,5 +8,5 @@ class Departments extends Model
 {
     public $timestamps = true;
     
-    protected $table = 'iba_system_department';
+    protected $table = 'sys_departments';
 }
