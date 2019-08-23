@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 22/08/2019 12:25:16
+ Date: 22/08/2019 18:21:24
 */
 
 SET NAMES utf8mb4;
@@ -23,13 +23,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `sys_departments`;
 CREATE TABLE `sys_departments`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `sort` int(11) NULL DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
-  `parent_id` int(10) UNSIGNED NULL DEFAULT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL,
-  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '名称',
+  `sort` int(11) NOT NULL COMMENT '排序值',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `parent_id` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '父级ID',
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '描述',
+  `create_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '修改人',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -67,11 +67,11 @@ INSERT INTO `sys_departments` VALUES (29, '开发测试', 1, 1, 0, '11', '超级
 DROP TABLE IF EXISTS `sys_dict_categories`;
 CREATE TABLE `sys_dict_categories`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_user_id` int(11) NULL DEFAULT NULL,
-  `updated_user_id` int(11) NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '名称',
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '唯一名称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `created_user_id` int(11) NULL DEFAULT NULL COMMENT '创建人',
+  `updated_user_id` int(11) NULL DEFAULT NULL COMMENT '修改人',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -89,17 +89,19 @@ INSERT INTO `sys_dict_categories` VALUES (2, '职位', 'office', '职位', 1, NU
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `dict_id` int(10) UNSIGNED NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_user_id` int(11) NULL DEFAULT NULL,
-  `updated_user_id` int(11) NULL DEFAULT NULL,
-  `sort` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '名称',
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '字段值',
+  `dict_id` int(10) UNSIGNED NOT NULL COMMENT '字典ID',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `created_user_id` int(11) NULL DEFAULT NULL COMMENT '创建人',
+  `updated_user_id` int(11) NULL DEFAULT NULL COMMENT '修改人',
+  `sort` int(11) NOT NULL COMMENT '排序值',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '是否启用',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `sys_dict_data_dict_id_foreign`(`dict_id`) USING BTREE,
+  CONSTRAINT `sys_dict_data_dict_id_foreign` FOREIGN KEY (`dict_id`) REFERENCES `sys_dict_categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -116,41 +118,40 @@ INSERT INTO `sys_dict_data` VALUES (5, '管理人员', '2', 2, '管理人员', 1
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menus`;
 CREATE TABLE `sys_menus`  (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `parent_id` int(10) UNSIGNED NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `link_type` int(11) NULL DEFAULT 0,
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
-  `target` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '_self',
-  `enabled` int(11) NOT NULL DEFAULT 1,
-  `sort` int(11) NULL DEFAULT NULL,
-  `created_user_id` int(11) NULL DEFAULT NULL,
-  `updated_user_id` int(11) NULL DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '标题',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '英文标题',
+  `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '前端组件',
+  `parent_id` int(10) UNSIGNED NULL DEFAULT NULL COMMENT '父级ID',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '地址',
+  `link_type` int(11) NOT NULL DEFAULT 0 COMMENT '链接类型',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '第三方链接',
+  `icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT 'icon',
+  `target` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '_self' COMMENT '链接跳转类型',
+  `enabled` int(11) NOT NULL DEFAULT 1 COMMENT '是否启用',
+  `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序值',
+  `created_user_id` int(11) NULL DEFAULT NULL COMMENT '创建用户ID',
+  `updated_user_id` int(11) NULL DEFAULT NULL COMMENT '修改用户ID',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
-  `type` int(11) NOT NULL DEFAULT 1 COMMENT '类型     pc端1   移动端2',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menus
 -- ----------------------------
-INSERT INTO `sys_menus` VALUES (1, '首页', 'base', NULL, 0, NULL, '/', 0, NULL, 'md-home', '_self', 1, 0, 1, NULL, '2019-03-25 20:44:45', '2019-03-25 20:45:32', 1);
-INSERT INTO `sys_menus` VALUES (2, '首页', 'home', 'views/sys/monitor/monitor', 1, NULL, '/home', 1, 'http://139.217.6.78:9000/slogan', 'md-home', '_self', 1, 0, 1, NULL, '2019-03-25 20:46:08', '2019-03-25 20:46:08', 1);
-INSERT INTO `sys_menus` VALUES (3, '系统管理', 'sys-manage', NULL, 0, '系统管理', '/sys-manage', 0, NULL, 'md-briefcase', '_self', 1, 1, 1, NULL, '2019-01-03 14:36:56', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (4, '用户管理', 'users', 'views/user/users', 3, '用户管理', 'users', 0, NULL, NULL, '_self', 1, 1, 1, NULL, '2019-01-25 11:08:19', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (5, '角色权限管理', 'role-manage', 'views/user/role-manage', 3, '角色权限管理', 'role-manage', 0, NULL, NULL, '_self', 1, 2, 1, NULL, '2018-12-27 16:13:30', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (6, '部门管理', 'department-manage', 'views/sys/department-manage/departmentManage', 3, '部门管理', 'department-manage/departmentManage', 0, NULL, NULL, '_self', 1, 3, 1, NULL, '2019-01-03 14:44:20', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (7, '菜单管理', 'menuManage', 'views/sys/menu-manage/menuManage', 3, '重构菜单', 'menuManage', 0, NULL, NULL, '_self', 1, 4, 1, NULL, '2019-01-23 14:45:44', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (8, '事件日志', 'eventlogs', 'views/sys/monitor/monitor', 3, '日志显示了程序中的潜在错误, 比如异常和调试信息。', 'eventlogs', 1, 'http://139.217.6.78:9000/logs', NULL, '_self', 1, 5, 1, NULL, '2019-01-09 16:37:32', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (9, '操作日志', 'operationlogs', 'views/sys/operationlogs', 3, '记录系统功能操作日志', 'operationlogs', 0, NULL, NULL, '_self', 1, 6, 1, NULL, '2019-01-10 02:46:52', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (10, '数据字典管理', 'dict', 'views/sys/dict-manage/dictManage', 3, '数据字典管理', 'dict-manage/dictManage', 0, NULL, NULL, '_self', 1, 7, 1, NULL, '2019-01-25 11:06:21', '1999-12-31 00:00:00', 1);
-INSERT INTO `sys_menus` VALUES (11, '个人中心', 'profile', 'views/sys/profile/profile', 3, '个人中心', '/sys/profile', 0, NULL, NULL, '_self', 1, 8, 1, NULL, '2019-01-18 14:54:09', '1999-12-31 00:00:00', 1);
+INSERT INTO `sys_menus` VALUES (1, '首页', 'base', NULL, 0, NULL, '/', 0, NULL, 'md-home', '_self', 1, 0, 1, NULL, '2019-03-25 20:44:45', '2019-03-25 20:45:32');
+INSERT INTO `sys_menus` VALUES (2, '首页', 'home', 'views/sys/monitor/monitor', 1, NULL, '/home', 1, 'http://139.217.6.78:9000/slogan', 'md-home', '_self', 1, 0, 1, NULL, '2019-03-25 20:46:08', '2019-03-25 20:46:08');
+INSERT INTO `sys_menus` VALUES (3, '系统管理', 'sys-manage', NULL, 0, '系统管理', '/sys-manage', 0, NULL, 'md-briefcase', '_self', 1, 1, 1, NULL, '2019-01-03 14:36:56', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (4, '用户管理', 'users', 'views/user/users', 3, '用户管理', 'users', 0, NULL, NULL, '_self', 1, 1, 1, NULL, '2019-01-25 11:08:19', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (5, '角色权限管理', 'role-manage', 'views/user/role-manage', 3, '角色权限管理', 'role-manage', 0, NULL, NULL, '_self', 1, 2, 1, NULL, '2018-12-27 16:13:30', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (6, '部门管理', 'department-manage', 'views/sys/department-manage/departmentManage', 3, '部门管理', 'department-manage/departmentManage', 0, NULL, NULL, '_self', 1, 3, 1, NULL, '2019-01-03 14:44:20', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (7, '菜单管理', 'menuManage', 'views/sys/menu-manage/menuManage', 3, '重构菜单', 'menuManage', 0, NULL, NULL, '_self', 1, 4, 1, NULL, '2019-01-23 14:45:44', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (8, '事件日志', 'eventlogs', 'views/sys/monitor/monitor', 3, '日志显示了程序中的潜在错误, 比如异常和调试信息。', 'eventlogs', 1, 'http://139.217.6.78:9000/logs', NULL, '_self', 1, 5, 1, NULL, '2019-01-09 16:37:32', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (9, '操作日志', 'operationlogs', 'views/sys/operationlogs', 3, '记录系统功能操作日志', 'operationlogs', 0, NULL, NULL, '_self', 1, 6, 1, NULL, '2019-01-10 02:46:52', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (10, '数据字典管理', 'dict', 'views/sys/dict-manage/dictManage', 3, '数据字典管理', 'dict-manage/dictManage', 0, NULL, NULL, '_self', 1, 7, 1, NULL, '2019-01-25 11:06:21', '1999-12-31 00:00:00');
+INSERT INTO `sys_menus` VALUES (11, '个人中心', 'profile', 'views/sys/profile/profile', 3, '个人中心', '/sys/profile', 0, NULL, NULL, '_self', 1, 8, 1, NULL, '2019-01-18 14:54:09', '1999-12-31 00:00:00');
 
 -- ----------------------------
 -- Table structure for sys_notices
@@ -174,29 +175,16 @@ CREATE TABLE `sys_notices`  (
 DROP TABLE IF EXISTS `sys_operation_logs`;
 CREATE TABLE `sys_operation_logs`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `ip_place` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '操作名称',
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '请求类型',
+  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '请求路径',
+  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'ip地址',
+  `ip_place` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'ip信息',
+  `user_id` int(11) NOT NULL COMMENT '操作用户',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_operation_logs
--- ----------------------------
-INSERT INTO `sys_operation_logs` VALUES (1, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 16:27:58', NULL);
-INSERT INTO `sys_operation_logs` VALUES (2, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:05:46', NULL);
-INSERT INTO `sys_operation_logs` VALUES (3, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:10:07', NULL);
-INSERT INTO `sys_operation_logs` VALUES (4, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:18:31', NULL);
-INSERT INTO `sys_operation_logs` VALUES (5, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:32:50', NULL);
-INSERT INTO `sys_operation_logs` VALUES (6, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-19 17:58:37', NULL);
-INSERT INTO `sys_operation_logs` VALUES (7, '新建字典分类', 'POST', 'api/dict/addDict', '::1', '', 1, '2019-08-19 18:01:22', NULL);
-INSERT INTO `sys_operation_logs` VALUES (8, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-21 10:54:34', NULL);
-INSERT INTO `sys_operation_logs` VALUES (9, '用户登录', 'POST', 'api/login', '::1', '', 1, '2019-08-22 12:16:33', NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_roles
@@ -204,10 +192,10 @@ INSERT INTO `sys_operation_logs` VALUES (9, '用户登录', 'POST', 'api/login',
 DROP TABLE IF EXISTS `sys_roles`;
 CREATE TABLE `sys_roles`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `is_default` int(11) NOT NULL DEFAULT 0,
-  `data_type` int(11) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '角色名称',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `is_default` int(11) NOT NULL DEFAULT 0 COMMENT '是否设置为注册用户默认角色',
+  `data_type` int(11) NOT NULL COMMENT '数据权限类型',
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -276,7 +264,7 @@ CREATE TABLE `sys_roles_menus`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_id` int(10) UNSIGNED NOT NULL,
   `menu_id` int(10) UNSIGNED NOT NULL,
-  `checked` int(10) NULL DEFAULT NULL,
+  `checked` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
