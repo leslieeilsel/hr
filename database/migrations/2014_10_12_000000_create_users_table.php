@@ -23,9 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('desc')->nullable();
             $table->integer('department_id')->nullable();
             $table->integer('office')->nullable();
+            $table->integer('group_id')->nullable();
             $table->rememberToken()->nullable();
+            $table->string('ding_user_id')->nullable();
             $table->timestamp('last_login')->nullable();
-            $table->string('api_token', 64)->unique();
             $table->timestamps();
         });
     }
