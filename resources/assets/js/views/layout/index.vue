@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+    <!-- header end -->
     <div style="margin-top: 100px;">
         <h2 style="text-align: center;">经营管理</h2>
         <Row :gutter="16" style="width:80%; margin:auto">
