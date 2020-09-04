@@ -15,7 +15,7 @@
     "laravel-mix": "^3.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.13.1"
   },
   "dependencies": {
     "axios": "^0.19",
